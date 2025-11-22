@@ -20,25 +20,20 @@ const success = <T>(c: Context, data: T, status: 200 | 201 = 200) =>
  * POST /api/auth/signup
  */
 export const signup = async (c: Context<{ Variables: Pick<AuthVariables, 'supabase'> }>) => {
-  try {
-    const body = await c.req.json<SignupInput>();
-    const supabase = c.get('supabase');
+  const body = await c.req.json<SignupInput>();
+  const supabase = c.get('supabase');
 
-    const result = await authService.signup(supabase, body);
+  const result = await authService.signup(supabase, body);
 
-    if (isErr(result)) {
-      return respondWithError(c, result.error.code, result.error.message);
-    }
-
-    return success(c, {
-      user: result.data.user,
-      accessToken: result.data.session.accessToken,
-      refreshToken: result.data.session.refreshToken,
-    }, 201);
-  } catch (error) {
-    console.error('Signup handler error:', error);
-    return respondWithError(c, 'INTERNAL_ERROR', '회원가입 처리 중 오류가 발생했습니다.');
+  if (isErr(result)) {
+    return respondWithError(c, result.error.code, result.error.message);
   }
+
+  return success(c, {
+    user: result.data.user,
+    accessToken: result.data.session.accessToken,
+    refreshToken: result.data.session.refreshToken,
+  }, 201);
 };
 
 /**
