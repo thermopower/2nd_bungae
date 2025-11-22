@@ -17,16 +17,19 @@ export const useMessages = ({ roomId, enabled = true }: UseMessagesOptions) => {
   const { state, actions } = useChatContext();
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  // 개별 액션 함수 참조 추출 (안정적인 참조)
+  const { fetchMessages, clearMessages, sendMessage: contextSendMessage } = actions;
+
   // 초기 메시지 로드
   useEffect(() => {
     if (enabled && roomId) {
-      actions.fetchMessages(roomId);
+      fetchMessages(roomId);
     }
 
     return () => {
-      actions.clearMessages();
+      clearMessages();
     };
-  }, [roomId, enabled, actions]);
+  }, [roomId, enabled, fetchMessages, clearMessages]);
 
   // 폴링
   useEffect(() => {
@@ -40,7 +43,7 @@ export const useMessages = ({ roomId, enabled = true }: UseMessagesOptions) => {
 
     intervalRef.current = setInterval(() => {
       if (state.lastMessageId) {
-        actions.fetchMessages(roomId, state.lastMessageId);
+        fetchMessages(roomId, state.lastMessageId);
       }
     }, POLLING_INTERVAL);
 
@@ -50,18 +53,18 @@ export const useMessages = ({ roomId, enabled = true }: UseMessagesOptions) => {
         intervalRef.current = null;
       }
     };
-  }, [roomId, enabled, state.lastMessageId, actions]);
+  }, [roomId, enabled, state.lastMessageId, fetchMessages]);
 
   const sendMessage = useCallback(
     (content: string) => {
-      return actions.sendMessage(roomId, content);
+      return contextSendMessage(roomId, content);
     },
-    [roomId, actions]
+    [roomId, contextSendMessage]
   );
 
   const refresh = useCallback(() => {
-    return actions.fetchMessages(roomId);
-  }, [roomId, actions]);
+    return fetchMessages(roomId);
+  }, [roomId, fetchMessages]);
 
   return {
     messages: state.messages,

@@ -5,6 +5,7 @@ import {
   useContext,
   useReducer,
   useCallback,
+  useMemo,
   ReactNode,
 } from 'react';
 import type { MessageWithReactions } from '@/types/domain/message.types';
@@ -298,18 +299,28 @@ export const ChatProvider = ({ children }: ChatProviderProps): JSX.Element => {
     dispatch({ type: 'CLEAR_ERROR' });
   }, []);
 
-  const actions: ChatActions = {
-    fetchMessages,
-    sendMessage,
-    deleteMessage,
-    toggleReaction,
-    toggleBookmark,
-    clearMessages,
-    clearError,
-  };
+  // actions 객체를 useMemo로 메모이제이션하여 불필요한 리렌더링 방지
+  const actions: ChatActions = useMemo(
+    () => ({
+      fetchMessages,
+      sendMessage,
+      deleteMessage,
+      toggleReaction,
+      toggleBookmark,
+      clearMessages,
+      clearError,
+    }),
+    [fetchMessages, sendMessage, deleteMessage, toggleReaction, toggleBookmark, clearMessages, clearError]
+  );
+
+  // context value도 메모이제이션하여 안정적인 참조 유지
+  const contextValue = useMemo(
+    () => ({ state, actions }),
+    [state, actions]
+  );
 
   return (
-    <ChatContext.Provider value={{ state, actions }}>
+    <ChatContext.Provider value={contextValue}>
       {children}
     </ChatContext.Provider>
   );
