@@ -1,0 +1,63 @@
+/**
+ * 에러 코드 및 메시지 상수 정의
+ */
+
+/** 에러 코드 상수 */
+export const ERROR_CODES = {
+  // Auth
+  UNAUTHORIZED: 'UNAUTHORIZED',
+  INVALID_CREDENTIALS: 'INVALID_CREDENTIALS',
+  EMAIL_ALREADY_EXISTS: 'EMAIL_ALREADY_EXISTS',
+  SESSION_EXPIRED: 'SESSION_EXPIRED',
+
+  // Validation
+  INVALID_INPUT: 'INVALID_INPUT',
+  INVALID_EMAIL_FORMAT: 'INVALID_EMAIL_FORMAT',
+  PASSWORD_TOO_SHORT: 'PASSWORD_TOO_SHORT',
+  PASSWORD_MISMATCH: 'PASSWORD_MISMATCH',
+
+  // Room
+  ROOM_NOT_FOUND: 'ROOM_NOT_FOUND',
+  ROOM_ACCESS_DENIED: 'ROOM_ACCESS_DENIED',
+  ALREADY_MEMBER: 'ALREADY_MEMBER',
+  NOT_A_MEMBER: 'NOT_A_MEMBER',
+
+  // Message
+  MESSAGE_NOT_FOUND: 'MESSAGE_NOT_FOUND',
+  MESSAGE_TOO_LONG: 'MESSAGE_TOO_LONG',
+  EMPTY_MESSAGE: 'EMPTY_MESSAGE',
+  NOT_MESSAGE_OWNER: 'NOT_MESSAGE_OWNER',
+
+  // Rate Limit
+  RATE_LIMIT_EXCEEDED: 'RATE_LIMIT_EXCEEDED',
+
+  // General
+  INTERNAL_ERROR: 'INTERNAL_ERROR',
+  NETWORK_ERROR: 'NETWORK_ERROR',
+} as const;
+
+/** 에러 코드 타입 */
+export type ErrorCode = (typeof ERROR_CODES)[keyof typeof ERROR_CODES];
+
+/** 에러 코드별 한글 메시지 */
+export const ERROR_MESSAGES: Record<ErrorCode, string> = {
+  [ERROR_CODES.UNAUTHORIZED]: '인증이 필요합니다',
+  [ERROR_CODES.INVALID_CREDENTIALS]: '이메일 또는 비밀번호가 올바르지 않습니다',
+  [ERROR_CODES.EMAIL_ALREADY_EXISTS]: '이미 사용 중인 이메일입니다',
+  [ERROR_CODES.SESSION_EXPIRED]: '세션이 만료되었습니다. 다시 로그인해주세요',
+  [ERROR_CODES.INVALID_INPUT]: '입력값이 올바르지 않습니다',
+  [ERROR_CODES.INVALID_EMAIL_FORMAT]: '올바른 이메일 형식을 입력해주세요',
+  [ERROR_CODES.PASSWORD_TOO_SHORT]: '비밀번호는 최소 8자 이상이어야 합니다',
+  [ERROR_CODES.PASSWORD_MISMATCH]: '비밀번호가 일치하지 않습니다',
+  [ERROR_CODES.ROOM_NOT_FOUND]: '존재하지 않는 채팅방입니다',
+  [ERROR_CODES.ROOM_ACCESS_DENIED]: '접근 권한이 없습니다',
+  [ERROR_CODES.ALREADY_MEMBER]: '이미 참여 중인 채팅방입니다',
+  [ERROR_CODES.NOT_A_MEMBER]: '채팅방 멤버가 아닙니다',
+  [ERROR_CODES.MESSAGE_NOT_FOUND]: '존재하지 않는 메시지입니다',
+  [ERROR_CODES.MESSAGE_TOO_LONG]: '메시지는 2000자 이내로 입력해주세요',
+  [ERROR_CODES.EMPTY_MESSAGE]: '메시지 내용을 입력해주세요',
+  [ERROR_CODES.NOT_MESSAGE_OWNER]: '본인의 메시지만 삭제할 수 있습니다',
+  [ERROR_CODES.RATE_LIMIT_EXCEEDED]: '잠시 후 다시 시도해주세요',
+  [ERROR_CODES.INTERNAL_ERROR]: '일시적인 오류가 발생했습니다',
+  [ERROR_CODES.NETWORK_ERROR]: '네트워크 연결을 확인해주세요',
+};
