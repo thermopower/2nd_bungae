@@ -22,6 +22,7 @@ export const API_ENDPOINTS = {
   MESSAGES: {
     DELETE: (messageId: string) => `${API_BASE_URL}/messages/${messageId}`,
     REACTIONS: (messageId: string) => `${API_BASE_URL}/messages/${messageId}/reactions`,
+    BOOKMARKS: (messageId: string) => `${API_BASE_URL}/messages/${messageId}/bookmarks`,
   },
   BOOKMARKS: {
     LIST: `${API_BASE_URL}/bookmarks`,
