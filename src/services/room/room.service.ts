@@ -7,7 +7,7 @@
 import type { Result } from '@/types/common/result.types';
 import { ok, err, isErr } from '@/utils/result.utils';
 import type { ServerClient } from '@/external/supabase/server';
-import type { Room, RoomWithMemberCount } from '@/types/domain/room.types';
+import type { RoomWithMemberCount } from '@/types/domain/room.types';
 import type { ApiError, PaginationParams } from '@/repositories/base.repository';
 import * as roomRepository from '@/repositories/room.repository';
 import { validateRoomName } from '@/utils/validation.utils';

@@ -5,7 +5,6 @@
  */
 
 import type { Context, Next } from 'hono';
-import type { ContentfulStatusCode } from 'hono/utils/http-status';
 import { ERROR_CODES, ERROR_MESSAGES } from '@/constants/error.constants';
 import type { ErrorCode } from '@/constants/error.constants';
 

@@ -4,7 +4,7 @@
  * API 요청의 인증을 처리합니다.
  */
 
-import type { Context, Next } from 'hono';
+// Types for Hono middleware (re-exported from hono/factory)
 import { createMiddleware } from 'hono/factory';
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from '@/external/supabase/types';

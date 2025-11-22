@@ -5,13 +5,12 @@
  */
 
 import type { Result } from '@/types/common/result.types';
-import { ok, err, isErr } from '@/utils/result.utils';
+import { ok, isErr } from '@/utils/result.utils';
 import type { ServerClient } from '@/external/supabase/server';
 import type { BookmarkWithMessage } from '@/types/domain/bookmark.types';
 import type { ApiError, PaginationParams } from '@/repositories/base.repository';
 import * as bookmarkRepository from '@/repositories/bookmark.repository';
 import * as messageRepository from '@/repositories/message.repository';
-import { ERROR_CODES } from '@/constants/error.constants';
 
 /** 북마크 토글 결과 */
 export interface ToggleBookmarkResult {

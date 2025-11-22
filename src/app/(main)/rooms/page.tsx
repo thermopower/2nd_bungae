@@ -11,7 +11,7 @@ import { isOk } from '@/utils/result.utils';
 
 export default function RoomsPage() {
   const router = useRouter();
-  const { rooms, isLoading, error, searchRooms, createRoom, fetchRooms, clearError } = useRooms();
+  const { rooms, isLoading, error, searchRooms, createRoom, fetchRooms } = useRooms();
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [createError, setCreateError] = useState<string | null>(null);
   const [isCreating, setIsCreating] = useState(false);

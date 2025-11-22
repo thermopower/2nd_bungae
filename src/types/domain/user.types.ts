@@ -12,4 +12,4 @@ export interface User {
 }
 
 /** 사용자 프로필 (간략 정보) */
-export interface UserProfile extends Pick<User, 'id' | 'nickname'> {}
+export type UserProfile = Pick<User, 'id' | 'nickname'>;

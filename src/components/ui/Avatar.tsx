@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 interface AvatarProps {
   readonly src?: string | null;
   readonly name?: string;
@@ -9,6 +11,12 @@ const sizeStyles = {
   sm: 'w-8 h-8 text-xs',
   md: 'w-10 h-10 text-sm',
   lg: 'w-12 h-12 text-base',
+};
+
+const sizePx = {
+  sm: 32,
+  md: 40,
+  lg: 48,
 };
 
 const getInitials = (name: string): string => {
@@ -53,11 +61,15 @@ export const Avatar = ({
 
   if (src) {
     return (
-      <img
-        src={src}
-        alt={name}
-        className={`${baseStyles} ${sizeStyles[size]} object-cover ${className}`}
-      />
+      <div className={`${baseStyles} ${sizeStyles[size]} relative overflow-hidden ${className}`}>
+        <Image
+          src={src}
+          alt={name}
+          width={sizePx[size]}
+          height={sizePx[size]}
+          className="object-cover rounded-full"
+        />
+      </div>
     );
   }
 

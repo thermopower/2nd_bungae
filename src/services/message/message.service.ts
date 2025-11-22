@@ -5,7 +5,7 @@
  */
 
 import type { Result } from '@/types/common/result.types';
-import { ok, err, isErr } from '@/utils/result.utils';
+import { err, isErr } from '@/utils/result.utils';
 import type { ServerClient } from '@/external/supabase/server';
 import type { MessageWithAuthor, MessageWithReactions } from '@/types/domain/message.types';
 import type { ApiError, PaginationParams } from '@/repositories/base.repository';
