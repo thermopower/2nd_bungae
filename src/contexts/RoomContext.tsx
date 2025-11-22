@@ -5,6 +5,7 @@ import {
   useContext,
   useReducer,
   useCallback,
+  useMemo,
   ReactNode,
 } from 'react';
 import type { Room, RoomWithMemberCount } from '@/types/domain/room.types';
@@ -220,17 +221,27 @@ export const RoomProvider = ({ children }: RoomProviderProps): JSX.Element => {
     dispatch({ type: 'CLEAR_ERROR' });
   }, []);
 
-  const actions: RoomActions = {
-    fetchRooms,
-    fetchRoom,
-    createRoom,
-    joinRoom,
-    leaveRoom,
-    clearError,
-  };
+  // actions 객체를 useMemo로 메모이제이션하여 불필요한 리렌더링 방지
+  const actions: RoomActions = useMemo(
+    () => ({
+      fetchRooms,
+      fetchRoom,
+      createRoom,
+      joinRoom,
+      leaveRoom,
+      clearError,
+    }),
+    [fetchRooms, fetchRoom, createRoom, joinRoom, leaveRoom, clearError]
+  );
+
+  // context value도 메모이제이션하여 안정적인 참조 유지
+  const contextValue = useMemo(
+    () => ({ state, actions }),
+    [state, actions]
+  );
 
   return (
-    <RoomContext.Provider value={{ state, actions }}>
+    <RoomContext.Provider value={contextValue}>
       {children}
     </RoomContext.Provider>
   );

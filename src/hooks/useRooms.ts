@@ -8,16 +8,18 @@ import { useRoomContext } from '@/contexts/RoomContext';
  */
 export const useRooms = () => {
   const { state, actions } = useRoomContext();
+  const { fetchRooms } = actions;
 
+  // fetchRooms 함수만 dependency로 사용하여 무한 루프 방지
   useEffect(() => {
-    actions.fetchRooms();
-  }, [actions]);
+    fetchRooms();
+  }, [fetchRooms]);
 
   const searchRooms = useCallback(
     (search: string) => {
-      actions.fetchRooms(search);
+      fetchRooms(search);
     },
-    [actions]
+    [fetchRooms]
   );
 
   return {
