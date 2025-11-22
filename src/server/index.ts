@@ -11,6 +11,7 @@ import { authRoutes } from './routes/auth.routes';
 import { roomsRoutes } from './routes/rooms.routes';
 import { messagesRoutes } from './routes/messages.routes';
 import { bookmarksRoutes } from './routes/bookmarks.routes';
+import { webhooksRoutes } from './routes/webhooks.routes';
 import { errorHandler } from './middleware/errorHandler.middleware';
 
 // Hono 앱 인스턴스 생성
@@ -34,6 +35,7 @@ app.route('/auth', authRoutes);
 app.route('/rooms', roomsRoutes);
 app.route('/messages', messagesRoutes);
 app.route('/bookmarks', bookmarksRoutes);
+app.route('/webhooks', webhooksRoutes);
 
 // 헬스 체크 엔드포인트
 app.get('/health', (c) => c.json({ status: 'ok', timestamp: new Date().toISOString() }));
