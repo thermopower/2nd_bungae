@@ -80,7 +80,12 @@ export const signup = async (
 
   if (isErr(profileResult)) {
     // 프로필 생성 실패 시 Auth 계정도 삭제 시도 (롤백)
-    await client.auth.admin.deleteUser(authData.user.id);
+    // 참고: admin.deleteUser는 실패할 수 있으므로 에러를 무시합니다
+    try {
+      await client.auth.admin.deleteUser(authData.user.id);
+    } catch {
+      console.error('Failed to rollback auth user:', authData.user.id);
+    }
     return profileResult;
   }
 
